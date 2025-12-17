@@ -1,0 +1,1516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 مدرب JavaScript التفاعلي - 32 تمرين</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #4cc9f0;
+            --success: #06d6a0;
+            --danger: #ef476f;
+            --warning: #ffd166;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: var(--light);
+            min-height: 100vh;
+            padding: 25px;
+            position: relative;
+            overflow-x: hidden;
+            font-size: 24px !important;
+        }
+        
+        body::before {
+            content: "🤖";
+            position: fixed;
+            font-size: 450px !important;
+            opacity: 0.03;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1500px !important;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px !important;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+        
+        /* Header Design */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 60px 50px !important;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px !important;
+            margin-bottom: 30px;
+        }
+        
+        .robot-icon {
+            font-size: 120px !important;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+        
+        .title {
+            font-size: 75px !important;
+            font-weight: 800;
+            background: linear-gradient(90deg, #fff, var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            line-height: 1.3;
+            letter-spacing: 1px;
+        }
+        
+        .subtitle {
+            font-size: 38px !important;
+            opacity: 0.9;
+            margin-top: 20px;
+            line-height: 1.5;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px !important;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px 40px !important;
+            border-radius: 60px !important;
+            display: flex;
+            align-items: center;
+            gap: 25px !important;
+            font-size: 28px !important;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-icon {
+            font-size: 36px !important;
+            color: var(--accent);
+        }
+        
+        /* Content Sections */
+        .content {
+            padding: 60px !important;
+            min-height: 700px;
+        }
+        
+        /* Welcome Screen */
+        .welcome-screen {
+            text-align: center;
+            padding: 80px 40px !important;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .welcome-icon {
+            font-size: 160px !important;
+            color: var(--accent);
+            margin-bottom: 50px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+        
+        .welcome-title {
+            font-size: 62px !important;
+            margin-bottom: 50px;
+            color: var(--accent);
+            line-height: 1.4;
+        }
+        
+        .welcome-screen p {
+            font-size: 32px !important;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 35px !important;
+            margin: 60px 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px !important;
+            border-radius: 25px;
+            border-left: 8px solid var(--accent);
+            transition: transform 0.3s, background 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-12px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .feature-card h3 {
+            font-size: 32px !important;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card p {
+            font-size: 26px !important;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .feature-icon {
+            font-size: 60px !important;
+            color: var(--success);
+            margin-bottom: 30px;
+        }
+        
+        .start-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 35px 90px !important;
+            font-size: 36px !important;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 30px !important;
+            margin: 60px auto;
+            transition: all 0.3s;
+            box-shadow: 0 15px 35px rgba(67, 97, 238, 0.5);
+            min-height: 100px !important;
+            width: auto;
+            min-width: 350px;
+        }
+        
+        .start-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 40px rgba(67, 97, 238, 0.7);
+        }
+        
+        /* Question Screen */
+        .question-screen {
+            display: none;
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 60px !important;
+            padding-bottom: 30px;
+            border-bottom: 4px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .question-number {
+            display: flex;
+            align-items: center;
+            gap: 30px !important;
+            font-size: 36px !important;
+        }
+        
+        .question-number span:first-child {
+            background: var(--primary);
+            padding: 20px 35px !important;
+            border-radius: 60px;
+            font-weight: bold;
+            font-size: 40px !important;
+            min-width: 90px;
+            text-align: center;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 25px !important;
+        }
+        
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            padding: 25px 40px !important;
+            border-radius: 15px;
+            color: white;
+            font-size: 28px !important;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 20px !important;
+            transition: all 0.3s;
+            min-height: 85px !important;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-btn:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+        
+        .question-content {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 60px !important;
+            border-radius: 25px;
+            margin-bottom: 50px;
+            border: 3px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .question-text {
+            font-size: 44px !important;
+            margin-bottom: 50px;
+            line-height: 1.8;
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .code-container {
+            background: #1e1e2e;
+            border-radius: 20px;
+            padding: 40px !important;
+            margin: 50px 0;
+            border-left: 8px solid var(--accent);
+            direction: ltr;
+            text-align: left;
+            overflow-x: auto;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .code {
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 28px !important;
+            color: #e0e0e0;
+            white-space: pre;
+            line-height: 2.2;
+        }
+        
+        /* Options */
+        .options-container {
+            margin: 60px 0 !important;
+        }
+        
+        .options-title {
+            font-size: 36px !important;
+            margin-bottom: 35px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 25px !important;
+        }
+        
+        .options-title i {
+            font-size: 42px !important;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px !important;
+        }
+        
+        .option {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 35px 40px !important;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 4px solid transparent;
+            text-align: left;
+            direction: ltr;
+            font-size: 30px !important;
+            display: flex;
+            align-items: center;
+            gap: 30px !important;
+            min-height: 110px !important;
+            line-height: 1.6;
+            margin: 10px 0;
+        }
+        
+        .option:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(-15px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .option-letter {
+            background: var(--primary);
+            width: 70px !important;
+            height: 70px !important;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 32px !important;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .option.correct {
+            background: rgba(6, 214, 160, 0.25);
+            border-color: var(--success);
+            border-width: 4px;
+            transform: scale(1.02);
+        }
+        
+        .option.correct .option-letter {
+            background: var(--success);
+            transform: scale(1.1);
+        }
+        
+        .option.incorrect {
+            background: rgba(239, 71, 111, 0.25);
+            border-color: var(--danger);
+            border-width: 4px;
+        }
+        
+        .option.incorrect .option-letter {
+            background: var(--danger);
+        }
+        
+        /* Answer Feedback */
+        .feedback-container {
+            margin-top: 60px;
+            padding: 40px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            display: none;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 25px !important;
+            margin-bottom: 30px;
+            font-size: 32px !important;
+        }
+        
+        .feedback-correct {
+            color: var(--success);
+            font-size: 34px !important;
+            font-weight: bold;
+        }
+        
+        .feedback-incorrect {
+            color: var(--danger);
+            font-size: 34px !important;
+            font-weight: bold;
+        }
+        
+        .feedback-icon {
+            font-size: 45px !important;
+        }
+        
+        .explanation {
+            font-size: 30px !important;
+            line-height: 1.9;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            border-right: 6px solid var(--accent);
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin-top: 70px;
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 30px !important;
+        }
+        
+        .progress-bar {
+            height: 20px !important;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent);
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 12px;
+        }
+        
+        /* Results Screen */
+        .results-screen {
+            display: none;
+            text-align: center;
+            padding: 80px 50px;
+            animation: fadeIn 1s;
+        }
+        
+        .results-icon {
+            font-size: 140px !important;
+            color: var(--success);
+            margin-bottom: 50px;
+            animation: bounce 1s;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+        
+        .results-title {
+            font-size: 58px !important;
+            margin-bottom: 50px;
+            color: var(--accent);
+            line-height: 1.4;
+        }
+        
+        .score-card {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 50px !important;
+            border-radius: 25px;
+            max-width: 700px !important;
+            margin: 40px auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .score-card h3 {
+            font-size: 36px !important;
+            margin-bottom: 25px;
+        }
+        
+        .score-number {
+            font-size: 100px !important;
+            font-weight: bold;
+            margin: 30px 0;
+            text-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .score-card p {
+            font-size: 30px !important;
+        }
+        
+        .restart-btn {
+            background: linear-gradient(135deg, var(--success), #06b48c);
+            color: white;
+            border: none;
+            padding: 35px 80px !important;
+            font-size: 32px !important;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 30px !important;
+            margin: 50px auto;
+            transition: all 0.3s;
+            min-height: 100px !important;
+            box-shadow: 0 15px 35px rgba(6, 214, 160, 0.4);
+            min-width: 350px;
+        }
+        
+        .restart-btn:hover {
+            transform: scale(1.08);
+            box-shadow: 0 20px 40px rgba(6, 214, 160, 0.6);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .title { font-size: 65px !important; }
+            .subtitle { font-size: 34px !important; }
+            .welcome-title { font-size: 54px !important; }
+            .question-text { font-size: 40px !important; }
+            .code { font-size: 26px !important; }
+            .option { font-size: 28px !important; padding: 30px 35px !important; }
+            .option-letter { width: 65px !important; height: 65px !important; font-size: 30px !important; }
+            .start-btn, .restart-btn { font-size: 34px !important; padding: 30px 70px !important; }
+        }
+        
+        @media (max-width: 768px) {
+            body { padding: 15px; font-size: 22px !important; }
+            .header { padding: 50px 30px !important; }
+            .logo-container { flex-direction: column; gap: 35px !important; }
+            .title { font-size: 52px !important; text-align: center; }
+            .subtitle { font-size: 30px !important; }
+            .robot-icon { font-size: 90px !important; }
+            .stats { flex-direction: column; align-items: center; gap: 25px !important; }
+            .stat-item { font-size: 26px !important; padding: 22px 35px !important; }
+            .question-header { flex-direction: column; gap: 30px !important; }
+            .nav-buttons { width: 100%; justify-content: center; }
+            .nav-btn { padding: 22px 35px !important; font-size: 26px !important; }
+            .question-content { padding: 45px !important; }
+            .question-text { font-size: 36px !important; }
+            .code { font-size: 24px !important; }
+            .option { font-size: 26px !important; padding: 30px !important; min-height: 100px !important; }
+            .option-letter { width: 60px !important; height: 60px !important; font-size: 28px !important; }
+            .start-btn, .restart-btn { 
+                padding: 30px 60px !important; 
+                font-size: 32px !important;
+                width: 90%;
+                justify-content: center;
+                min-height: 90px !important;
+            }
+            .explanation { font-size: 28px !important; }
+            .results-title { font-size: 48px !important; }
+            .score-number { font-size: 85px !important; }
+        }
+        
+        @media (max-width: 480px) {
+            body { padding: 12px; font-size: 20px !important; }
+            .content { padding: 40px !important; }
+            .title { font-size: 45px !important; }
+            .subtitle { font-size: 26px !important; }
+            .welcome-title { font-size: 42px !important; }
+            .welcome-icon { font-size: 120px !important; }
+            .question-text { font-size: 32px !important; }
+            .code { font-size: 22px !important; }
+            .option { font-size: 24px !important; padding: 25px !important; min-height: 90px !important; }
+            .option-letter { width: 55px !important; height: 55px !important; font-size: 26px !important; }
+            .feature-card { padding: 30px !important; }
+            .feature-card h3 { font-size: 28px !important; }
+            .feature-card p { font-size: 24px !important; }
+            .results-title { font-size: 42px !important; }
+            .score-number { font-size: 75px !important; }
+            .start-btn, .restart-btn { 
+                padding: 25px 40px !important; 
+                font-size: 28px !important;
+                min-height: 80px !important;
+            }
+        }
+        
+        /* تحسينات إضافية للوضوح */
+        .highlight {
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .note {
+            background: rgba(255, 215, 102, 0.15);
+            border-right: 5px solid var(--warning);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            font-size: 28px !important;
+            line-height: 1.6;
+        }
+        
+        .key-point {
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .section-divider {
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            margin: 40px 0;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo-container">
+                <div class="robot-icon">🤖</div>
+                <h1 class="title">مدرب JavaScript التفاعلي</h1>
+            </div>
+            <p class="subtitle" id="quiz-subtitle">32 تمرين تفاعلي مع التصحيح الفوري</p>
+            <div class="stats">
+                <div class="stat-item">
+                    <span class="stat-icon">📚</span>
+                    <span id="total-questions-count">32</span>
+                    <span>تمرين</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">⚡</span>
+                    <span>تصحيح فوري</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🎯</span>
+                    <span id="quiz-levels">5 مستويات</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🔍</span>
+                    <span>خطوط كبيرة</span>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Welcome Screen -->
+            <div class="welcome-screen" id="welcome-screen">
+                <div class="welcome-icon">🚀</div>
+                <h2 class="welcome-title" id="welcome-title">أهلاً بك في رحلة تعلم JavaScript!</h2>
+                <p id="welcome-description">
+                    ابدأ رحلتك مع <span class="highlight" id="questions-count-highlight">32 تمريناً تفاعلياً</span> مصمماً خصيصاً لك. كل سؤال فرصة للتعلم!
+                </p>
+                
+                <div class="note">
+                    <span class="key-point">✓ ملاحظة:</span> تم تكبير جميع الخطوط والخيارات <span class="highlight">ضعفين</span> لتكون أوضح وأسهل للقراءة من أي مسافة
+                </div>
+                
+                <div class="section-divider"></div>
+                
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <h3>تصحيح فوري</h3>
+                        <p>تعرف على إجابتك فوراً مع شرح مفصل وواضح</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>تتبع التقدم</h3>
+                        <p>شاهد تقدمك خطوة بخطوة مع أشرطة تقدم واضحة</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>خطوط كبيرة جداً</h3>
+                        <p>جميع النصوص مكبرة جداً ومصممة للقراءة المريحة</p>
+                    </div>
+                </div>
+                
+                <!-- زر البداية مع ID الصحيح -->
+                <button class="start-btn" id="start-btn">
+                    <i class="fas fa-play-circle"></i>
+                    ابدأ التدريب الآن
+                </button>
+            </div>
+            
+            <!-- Question Screen -->
+            <div class="question-screen" id="question-screen">
+                <div class="question-header">
+                    <div class="question-number">
+                        <span id="current-q">1</span>
+                        <span>/</span>
+                        <span id="total-q">32</span>
+                        <span>تمرين</span>
+                    </div>
+                    
+                    <div class="nav-buttons">
+                        <button class="nav-btn" id="prev-btn">
+                            <i class="fas fa-arrow-right"></i>
+                            السابق
+                        </button>
+                        <button class="nav-btn" id="next-btn">
+                            التالي
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <button class="nav-btn" id="end-btn" style="display: none;">
+                            <i class="fas fa-flag-checkered"></i>
+                            إنهاء
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="question-content">
+                    <div class="question-text" id="question-text">
+                        السؤال يظهر هنا...
+                    </div>
+                    
+                    <div class="code-container">
+                        <pre class="code" id="code-snippet">// الكود يظهر هنا</pre>
+                    </div>
+                    
+                    <!-- Options Container -->
+                    <div class="options-container">
+                        <div class="options-title">
+                            <i class="fas fa-list-ol"></i>
+                            اختر الإجابة الصحيحة:
+                        </div>
+                        <div class="options-grid" id="options-container">
+                            <!-- Options will be inserted here by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <!-- Feedback Section -->
+                    <div class="feedback-container" id="feedback-container">
+                        <div class="feedback-header" id="feedback-header">
+                            <div class="feedback-icon">💡</div>
+                            <h3 id="feedback-title">الإجابة</h3>
+                        </div>
+                        <div class="explanation" id="explanation">
+                            الشرح يظهر هنا...
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-header">
+                        <span>تقدمك في التمرين</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Screen -->
+            <div class="results-screen" id="results-screen">
+                <div class="results-icon">🏆</div>
+                <h2 class="results-title" id="results-title">أحسنت! لقد أكملت جميع التمارين</h2>
+                
+                <div class="score-card">
+                    <h3>نتيجتك النهائية</h3>
+                    <div class="score-number" id="final-score">0</div>
+                    <p id="results-description">إجابة صحيحة من أصل 32</p>
+                </div>
+                
+                <div style="max-width: 800px; margin: 35px auto; text-align: center;">
+                    <p style="font-size: 30px !important; margin-bottom: 30px; line-height: 1.7;" id="results-message">
+                        لقد أظهرت تفوقاً رائعاً في فهم مفاهيم JavaScript الأساسية!
+                    </p>
+                    <p style="opacity: 0.9; font-size: 28px !important; line-height: 1.6;" id="results-submessage">
+                        يمكنك العودة لمراجعة أي تمرين أو البدء من جديد لتثبيت المعلومات.
+                    </p>
+                </div>
+                
+                <button class="restart-btn" id="restart-btn">
+                    <i class="fas fa-redo"></i>
+                    بدء تدريب جديد
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // الأسئلة الـ32 المقدمة من المستخدم
+        // السؤالان الأولان هما اكتشاف الأخطاء كما طلبت
+        // ============================================
+        const originalQuestions = [
+            // السؤال 1: اكتشاف خطأ - الأول في الترتيب
+            {
+                id: 1,
+                level: "اكتشاف الأخطاء",
+                question: "ما الخطأ في هذا الكود؟",
+                code: `console.log(see you tomorrow);`,
+                correctAnswer: `النص يجب أن يكون بين علامتي تنصيص`,
+                wrongAnswers: [
+                    `لا يوجد خطأ، الكود صحيح`,
+                    `يجب استخدام print بدلاً من console.log`,
+                    `يجب إضافة فاصلة منقوطة في النهاية`
+                ],
+                explanation: "❌ يوجد خطأ! النصوص في JavaScript يجب أن تكون بين علامتي تنصيص. الصحيح: console.log('see you tomorrow');"
+            },
+            // السؤال 2: اكتشاف خطأ - الثاني في الترتيب
+            {
+                id: 2,
+                level: "اكتشاف الأخطاء",
+                question: "ما الخطأ في هذا الكود؟",
+                code: `let number = 20`,
+                correctAnswer: `يجب إضافة فاصلة منقوطة في النهاية`,
+                wrongAnswers: [
+                    `لا يوجد خطأ، الكود صحيح`,
+                    `يجب استخدام var بدلاً من let`,
+                    `يجب وضع الرقم بين علامتي تنصيص`
+                ],
+                explanation: "⚠️ يوجد خطأ! يجب إضافة فاصلة منقوطة في نهاية السطر: let number = 20;"
+            },
+            // السؤال 3: اختيار من متعدد
+            {
+                id: 3,
+                level: "أساسيات",
+                question: "اختر البرنامج الصحيح لعرض 'Hello' في وحدة التحكم.",
+                correctAnswer: `console.log("Hello");`,
+                wrongAnswers: [
+                    `log.console("Hello");`,
+                    `console.logHello;`,
+                    `consolelog("Hello")`
+                ],
+                explanation: "✅ الصحيح! console.log() هي الدالة الصحيحة لعرض النصوص في JavaScript."
+            },
+            // السؤال 4: كتابة كود
+            {
+                id: 4,
+                level: "أساسيات",
+                question: "اعرض 'Good morning' في وحدة التحكم.",
+                correctAnswer: `console.log("Good morning");`,
+                wrongAnswers: [
+                    `print("Good morning");`,
+                    `echo "Good morning";`,
+                    `display("Good morning");`
+                ],
+                explanation: "✅ الصحيح! console.log('Good morning'); هي الطريقة الصحيحة."
+            },
+            // السؤال 5: اختيار من متعدد
+            {
+                id: 5,
+                level: "التعليقات",
+                question: "يرجى اختيار الطريقة الصحيحة لكتابة التعليق.",
+                correctAnswer: `//Write your comments here.`,
+                wrongAnswers: [
+                    `/Write your comments here.`,
+                    `/Write your comments here./`,
+                    `Write your comments here.//`
+                ],
+                explanation: "✅ الصحيح! // في بداية السطر هي الطريقة الصحيحة لكتابة تعليق من سطر واحد."
+            },
+            // السؤال 6: تعديل كود
+            {
+                id: 6,
+                level: "التعليقات",
+                question: "علّق البرنامج بحيث تكون المخرجات كما يلي:<br>Hello.<br>My name is<br>Cody.",
+                code: `console.log("Hello.");
+console.log("My name is");
+console.log("Rick.");
+console.log("Cody.");`,
+                correctAnswer: `//console.log("Rick.");`,
+                wrongAnswers: [
+                    `console.log("Rick.");`,
+                    `/* console.log("Rick."); */`,
+                    `console.log("//Rick.");`
+                ],
+                explanation: "✅ الصحيح! يجب تعليق السطر الثالث console.log('Rick.'); ليظهر فقط Hello, My name is, Cody."
+            },
+            // السؤال 7: كتابة كود حسابي
+            {
+                id: 7,
+                level: "عمليات",
+                question: "اجعل الكمبيوتر يحسب 432+345 ويعرض نتيجة الحساب في وحدة التحكم.",
+                correctAnswer: `console.log(432+345);`,
+                wrongAnswers: [
+                    `console.log("432+345");`,
+                    `console.log(777);`,
+                    `print(432+345);`
+                ],
+                explanation: "✅ الصحيح! 432 + 345 = 777. بدون علامتي تنصيص سيتم تنفيذ العملية الحسابية."
+            },
+            // السؤال 8: كتابة كود حسابي
+            {
+                id: 8,
+                level: "عمليات",
+                question: "اجعل الكمبيوتر يحسب 100-50 ويعرض نتيجة الحساب في وحدة التحكم.",
+                correctAnswer: `console.log(100-50);`,
+                wrongAnswers: [
+                    `console.log("100-50");`,
+                    `console.log(50);`,
+                    `console.log(100 - 50);`
+                ],
+                explanation: "✅ الصحيح! 100 - 50 = 50. علامة الطرح (-) تستخدم للطرح."
+            },
+            // السؤال 9: كتابة كود حسابي
+            {
+                id: 9,
+                level: "عمليات",
+                question: "اجعل الكمبيوتر يحسب 10÷5 ويعرض نتيجة الحساب في وحدة التحكم.",
+                correctAnswer: `console.log(10/5);`,
+                wrongAnswers: [
+                    `console.log("10÷5");`,
+                    `console.log(2);`,
+                    `console.log(10 ÷ 5);`
+                ],
+                explanation: "✅ الصحيح! 10 ÷ 5 = 2. علامة الشرطة المائلة (/) تستخدم للقسمة."
+            },
+            // السؤال 10: فهم المخرجات
+            {
+                id: 10,
+                level: "عمليات",
+                question: "ما مخرجات هذا الكود؟",
+                code: `console.log("1+1");`,
+                correctAnswer: `"1+1"`,
+                wrongAnswers: [
+                    `2`,
+                    `"2"`,
+                    `خطأ في الكود`
+                ],
+                explanation: "✅ الصحيح! النص '1+1' بين علامتي تنصيص سيتم عرضه كنص وليس عملية حسابية."
+            },
+            // السؤال 11: فهم المخرجات
+            {
+                id: 11,
+                level: "عمليات",
+                question: "ما مخرجات هذا الكود؟",
+                code: `console.log(1+1);`,
+                correctAnswer: `2`,
+                wrongAnswers: [
+                    `"1+1"`,
+                    `"2"`,
+                    `خطأ في الكود`
+                ],
+                explanation: "✅ الصحيح! بدون علامتي تنصيص، سيقوم JavaScript بحساب 1+1 ويعرض النتيجة 2."
+            },
+            // السؤال 12: فهم المخرجات
+            {
+                id: 12,
+                level: "عمليات",
+                question: "ما مخرجات هذا الكود؟",
+                code: `console.log("Set of 2 coffees " + (250 * 2) + " codycoins");`,
+                correctAnswer: `"Set of 2 coffees 500 codycoins"`,
+                wrongAnswers: [
+                    `"Set of 2 coffees 250*2 codycoins"`,
+                    `"Set of 2 coffees (250*2) codycoins"`,
+                    `خطأ في الكود`
+                ],
+                explanation: "✅ الصحيح! (250*2) = 500، ثم يدمج مع النص: 'Set of 2 coffees 500 codycoins'"
+            },
+            // السؤال 13: فهم المخرجات
+            {
+                id: 13,
+                level: "عمليات",
+                question: "ما مخرج هذا الكود؟",
+                code: `console.log("Today's recommendation is " + "soup.");
+console.log("Limited to " + 30 + " servings.");`,
+                correctAnswer: `"Today's recommendation is soup." ثم "Limited to 30 servings."`,
+                wrongAnswers: [
+                    `"Today's recommendation is soup.Limited to 30 servings."`,
+                    `خطأ في الكود`,
+                    `"Today's recommendation is " ثم "soup.Limited to " ثم "30 servings."`
+                ],
+                explanation: "✅ الصحيح! السطر الأول: دمج نصين. السطر الثاني: دمج نص مع رقم (سيتم تحويل الرقم إلى نص)."
+            },
+            // السؤال 14: كتابة كود مع دمج
+            {
+                id: 14,
+                level: "عمليات",
+                question: "اعرض 'Two muffins 640 codycoins' في وحدة التحكم.<br>(اجعل الكمبيوتر يحسب 320 × 2).",
+                correctAnswer: `console.log("Two muffins " + (320*2) + " codycoins");`,
+                wrongAnswers: [
+                    `console.log("Two muffins 640 codycoins");`,
+                    `console.log(Two muffins + 320*2 + codycoins);`,
+                    `console.log("Two muffins 320*2 codycoins");`
+                ],
+                explanation: "✅ الصحيح! (320*2) = 640، ثم يدمج مع النص: 'Two muffins 640 codycoins'"
+            },
+            // السؤال 15: اختيار من متعدد
+            {
+                id: 15,
+                level: "عمليات",
+                question: "اختر البرنامج الصحيح لعرض نتيجة حساب 50+100 في وحدة التحكم.",
+                correctAnswer: `console.log(50 + 100);`,
+                wrongAnswers: [
+                    `console.log(50" + "100);`,
+                    `console.log("50" + "100");`,
+                    `console.log("50 + 100");`
+                ],
+                explanation: "✅ الصحيح! بدون علامتي تنصيص، سيتم حساب 50+100=150 وعرض النتيجة."
+            },
+            // السؤال 16: اختيار من متعدد
+            {
+                id: 16,
+                level: "عمليات",
+                question: "اختر الرمز الصحيح للقسمة المستخدم في البرنامج.",
+                correctAnswer: `/`,
+                wrongAnswers: [
+                    `÷`,
+                    `*`,
+                    `-`
+                ],
+                explanation: "✅ الصحيح! علامة الشرطة المائلة (/) هي الرمز المستخدم للقسمة في JavaScript."
+            },
+            // السؤال 17: كتابة كود حسابي
+            {
+                id: 17,
+                level: "عمليات",
+                question: "اجعل الكمبيوتر يحسب 19+40 ويعرض نتيجة الحساب في وحدة التحكم.",
+                correctAnswer: `console.log(19+40);`,
+                wrongAnswers: [
+                    `console.log("19+40");`,
+                    `console.log(59);`,
+                    `print(19+40);`
+                ],
+                explanation: "✅ الصحيح! 19 + 40 = 59. سيتم حسابها وعرض النتيجة."
+            },
+            // السؤال 18: كتابة كود حسابي
+            {
+                id: 18,
+                level: "عمليات",
+                question: "اجعل الكمبيوتر يحسب 15 ÷ 5 ويعرض نتيجة الحساب في وحدة التحكم.",
+                correctAnswer: `console.log(15/5);`,
+                wrongAnswers: [
+                    `console.log("15÷5");`,
+                    `console.log(3);`,
+                    `console.log(15 ÷ 5);`
+                ],
+                explanation: "✅ الصحيح! 15 ÷ 5 = 3. استخدم / للقسمة."
+            },
+            // السؤال 19: كتابة كود مع دمج
+            {
+                id: 19,
+                level: "عمليات",
+                question: "اجعل الكمبيوتر يحسب 2*5 ويعرض 'The answer is 10.' في وحدة التحكم.",
+                correctAnswer: `console.log("The answer is " + (2*5) + ".");`,
+                wrongAnswers: [
+                    `console.log("The answer is 10.");`,
+                    `console.log(The answer is + 2*5 + .);`,
+                    `console.log("The answer is 2*5.");`
+                ],
+                explanation: "✅ الصحيح! (2*5) = 10، ثم يدمج مع النص: 'The answer is 10.'"
+            },
+            // السؤال 20: اختيار من متعدد
+            {
+                id: 20,
+                level: "المتغيرات",
+                question: "اختر البرنامج الصحيح لإعلان المتغيّر score.",
+                correctAnswer: `let score;`,
+                wrongAnswers: [
+                    `score =;`,
+                    `score;`,
+                    `score let;`
+                ],
+                explanation: "✅ الصحيح! let score; هي الطريقة الصحيحة لإعلان متغير في JavaScript."
+            },
+            // السؤال 21: اختيار من متعدد
+            {
+                id: 21,
+                level: "المتغيرات",
+                question: "اختر البرنامج الصحيح لعرض قيمة المتغيّر score في وحدة التحكم.",
+                correctAnswer: `console.log(score);`,
+                wrongAnswers: [
+                    `console.log = score;`,
+                    `console.log score;`,
+                    `console.log("score");`
+                ],
+                explanation: "✅ الصحيح! console.log(score); تعرض قيمة المتغير، بينما console.log('score'); تعرض النص 'score'."
+            },
+            // السؤال 22: كتابة كود
+            {
+                id: 22,
+                level: "المتغيرات",
+                question: "أعلن المتغيّر number.",
+                correctAnswer: `let number;`,
+                wrongAnswers: [
+                    `number;`,
+                    `var number;`,
+                    `const number;`
+                ],
+                explanation: "✅ الصحيح! let number; تعلن متغيراً يمكن تغيير قيمته لاحقاً."
+            },
+            // السؤال 23: كتابة كود
+            {
+                id: 23,
+                level: "المتغيرات",
+                question: "أسند 100 إلى المتغيّر number (المتغير تم اعلانه من قبل).",
+                correctAnswer: `number = 100;`,
+                wrongAnswers: [
+                    `let number = 100;`,
+                    `100 = number;`,
+                    `number == 100;`
+                ],
+                explanation: "✅ الصحيح! بعد إعلان المتغير، نستخدم = لإسناد قيمة له."
+            },
+            // السؤال 24: كتابة كود
+            {
+                id: 24,
+                level: "المتغيرات",
+                question: "اعرض قيمة المتغيّر number في وحدة التحكم.<br>المتغير: let number; number = 10;",
+                correctAnswer: `console.log(number);`,
+                wrongAnswers: [
+                    `console.log("number");`,
+                    `print(number);`,
+                    `console.log(10);`
+                ],
+                explanation: "✅ الصحيح! console.log(number); تعرض قيمة المتغير (10)."
+            },
+            // السؤال 25: كتابة كود
+            {
+                id: 25,
+                level: "المتغيرات",
+                question: "بعد: let number; number = 3;<br>1. أسند قيمة المتغيّر number مضافًا إليها 10<br>2. اعرض قيمة المتغيّر number في وحدة التحكم.",
+                correctAnswer: `number = number + 10; console.log(number);`,
+                wrongAnswers: [
+                    `number = 10; console.log(number);`,
+                    `console.log(number + 10);`,
+                    `number += 10; console.log("number");`
+                ],
+                explanation: "✅ الصحيح! number = number + 10; تضيف 10 للقيمة الحالية (3 تصبح 13)، ثم console.log(number); تعرض 13."
+            },
+            // السؤال 26: تعديل كود
+            {
+                id: 26,
+                level: "التعليقات",
+                question: "ماذا سأضيف لكي يعمل البرنامج بشكل صحيح ويطبع:<br>console.log('Make the first line a comment.');",
+                code: `console.log("Make the first line a comment.");`,
+                correctAnswer: `// أضف تعليقاً في السطر الأول`,
+                wrongAnswers: [
+                    `لا تحتاج لإضافة شيء`,
+                    `أضف /* في البداية و */ في النهاية`,
+                    `أضف <!– في البداية و –> في النهاية`
+                ],
+                explanation: "✅ الصحيح! السؤال يطلب جعل السطر الأول تعليقاً، لذا يجب إضافة // في بداية سطر console.log لجعله تعليقاً."
+            },
+            // السؤال 27: اختيار من متعدد
+            {
+                id: 27,
+                level: "عمليات",
+                question: "اختر البرنامج الصحيح الذي يجعل الحاسوب يحسب '5+7' ويُخرج نتيجة العملية الحسابية.",
+                correctAnswer: `console.log(5 + 7);`,
+                wrongAnswers: [
+                    `console.log("5 + 7");`,
+                    `console.log(5" + "7);`,
+                    `console.log("5" + "7");`
+                ],
+                explanation: "✅ الصحيح! بدون علامتي تنصيص، سيتم حساب 5+7=12 وعرض النتيجة."
+            },
+            // السؤال 28: اختيار من متعدد
+            {
+                id: 28,
+                level: "عمليات",
+                question: "اختر الرمز الصحيح للضرب المستخدم في البرنامج.",
+                correctAnswer: `*`,
+                wrongAnswers: [
+                    `+`,
+                    `-`,
+                    `/`
+                ],
+                explanation: "✅ الصحيح! علامة النجمة (*) هي الرمز المستخدم للضرب في JavaScript."
+            },
+            // السؤال 29: كتابة كود مع دمج
+            {
+                id: 29,
+                level: "عمليات",
+                question: "دع الحاسوب يحسب '3*5' ويُخرج 'The answer is 15.' على الـ console.",
+                correctAnswer: `console.log("The answer is " + (3*5) + ".");`,
+                wrongAnswers: [
+                    `console.log("The answer is 15.");`,
+                    `console.log(The answer is + 3*5 + .);`,
+                    `console.log("The answer is 3*5.");`
+                ],
+                explanation: "✅ الصحيح! (3*5) = 15، ثم يدمج مع النص: 'The answer is 15.'"
+            },
+            // السؤال 30: اختيار من متعدد
+            {
+                id: 30,
+                level: "المتغيرات",
+                question: "اختر التصريح الصحيح (declaration) للمتغير number.",
+                correctAnswer: `let number;`,
+                wrongAnswers: [
+                    `let = number;`,
+                    `number;`,
+                    `number let;`
+                ],
+                explanation: "✅ الصحيح! let number; هي الصيغة الصحيحة لإعلان متغير في JavaScript."
+            },
+            // السؤال 31: كتابة كود متكامل
+            {
+                id: 31,
+                level: "المتغيرات",
+                question: "أنشئ برنامجك كما يلي:<br>1. صرّح عن المتغيّر num.<br>2. أسند القيمة 5 إلى num<br>3. أخرج قيمة num على الـ console",
+                correctAnswer: `let num; num = 5; console.log(num);`,
+                wrongAnswers: [
+                    `num = 5; console.log(num);`,
+                    `let num = 5; console.log("num");`,
+                    `console.log(5); let num;`
+                ],
+                explanation: "✅ الصحيح! ثلاث خطوات: 1) إعلان المتغير، 2) إسناد القيمة، 3) عرض القيمة."
+            },
+            // السؤال 32: اختيار من متعدد
+            {
+                id: 32,
+                level: "عمليات",
+                question: "اختر البرنامج الصحيح الذي يجعل الحاسوب يحسب '5+7' ويُخرج نتيجة العملية الحسابية على الـ console.",
+                correctAnswer: `console.log(5 + 7);`,
+                wrongAnswers: [
+                    `console.log("5 + 7");`,
+                    `console.log(5" + "7);`,
+                    `console.log("5" + "7");`
+                ],
+                explanation: "✅ الصحيح! مرة أخرى، بدون علامتي تنصيص لحساب العملية: 5+7=12"
+            }
+        ];
+
+        // ============================================
+        // نظام خلط الإجابات عشوائياً
+        // ============================================
+        function shuffleQuestions(questionsArray) {
+            const shuffledQuestions = [];
+            const letters = ['a', 'b', 'c', 'd'];
+            
+            questionsArray.forEach((question, index) => {
+                // تحديد الحرف الذي ستكون عليه الإجابة الصحيحة بشكل عشوائي
+                const correctLetter = letters[Math.floor(Math.random() * letters.length)];
+                
+                // إنشاء مصفوفة تحتوي على جميع الإجابات (الصحيحة + الخاطئة)
+                const allAnswers = [...question.wrongAnswers, question.correctAnswer];
+                
+                // خلط الإجابات عشوائياً
+                for (let i = allAnswers.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [allAnswers[i], allAnswers[j]] = [allAnswers[j], allAnswers[i]];
+                }
+                
+                // إنشاء كائن options بترتيب عشوائي
+                const options = {};
+                let answerKey = '';
+                
+                // تعيين الإجابات للخيارات
+                letters.forEach((letter, idx) => {
+                    options[letter] = allAnswers[idx];
+                    // إذا كانت هذه الإجابة هي الصحيحة، احفظ مفتاحها
+                    if (allAnswers[idx] === question.correctAnswer) {
+                        answerKey = letter;
+                    }
+                });
+                
+                // إضافة السؤال بعد الخلط
+                shuffledQuestions.push({
+                    id: index + 1,
+                    level: question.level,
+                    question: question.question,
+                    code: question.code || "",
+                    options: options,
+                    answer: answerKey,
+                    explanation: question.explanation,
+                    originalCorrectAnswer: question.correctAnswer
+                });
+            });
+            
+            return shuffledQuestions;
+        }
+
+        // إنشاء الأسئلة بعد الخلط العشوائي
+        let questions = shuffleQuestions(originalQuestions);
+
+        // ============================================
+        // نظام التطبيق الرئيسي
+        // ============================================
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(questions.length).fill(null);
+        let score = 0;
+
+        // تحديث الإحصائيات
+        function updateStats() {
+            const levels = new Set(questions.map(q => q.level));
+            const levelsCount = levels.size;
+            document.getElementById('quiz-levels').textContent = `${levelsCount} مستويات`;
+            
+            const percentage = (score / questions.length) * 100;
+            let message = "";
+            
+            if (percentage >= 90) {
+                message = "ممتاز! لقد أظهرت إتقاناً رائعاً للموضوع!";
+            } else if (percentage >= 70) {
+                message = "جيد جداً! لديك فهم قوي للمفاهيم الأساسية.";
+            } else if (percentage >= 50) {
+                message = "جيد! لديك فهم أساسي للموضوع.";
+            } else {
+                message = "تحتاج للمزيد من الممارسة.";
+            }
+            
+            document.getElementById('results-message').textContent = message;
+        }
+
+        // عناصر DOM
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const questionScreen = document.getElementById('question-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const questionText = document.getElementById('question-text');
+        const codeSnippet = document.getElementById('code-snippet');
+        const optionsContainer = document.getElementById('options-container');
+        const feedbackContainer = document.getElementById('feedback-container');
+        const feedbackHeader = document.getElementById('feedback-header');
+        const explanation = document.getElementById('explanation');
+        const currentQ = document.getElementById('current-q');
+        const progressFill = document.getElementById('progress-fill');
+        const progressPercent = document.getElementById('progress-percent');
+        const finalScore = document.getElementById('final-score');
+        const resultsTitle = document.getElementById('results-title');
+
+        // إضافة event listeners
+        document.getElementById('start-btn').onclick = startQuiz;
+        document.getElementById('prev-btn').onclick = prevQuestion;
+        document.getElementById('next-btn').onclick = nextQuestion;
+        document.getElementById('end-btn').onclick = endQuiz;
+        document.getElementById('restart-btn').onclick = restartQuiz;
+
+        // تحديث الإحصائيات أولاً
+        updateStats();
+
+        function startQuiz() {
+            questions = shuffleQuestions(originalQuestions);
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            score = 0;
+            
+            welcomeScreen.style.display = 'none';
+            questionScreen.style.display = 'block';
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            
+            currentQ.textContent = currentQuestionIndex + 1;
+            questionText.innerHTML = question.question;
+            codeSnippet.textContent = question.code || "// لا يوجد كود لهذا السؤال";
+            
+            optionsContainer.innerHTML = '';
+            
+            const letters = ['a', 'b', 'c', 'd'];
+            letters.forEach(letter => {
+                const option = document.createElement('div');
+                option.className = 'option';
+                
+                if (userAnswers[currentQuestionIndex] === letter) {
+                    if (letter === question.answer) {
+                        option.classList.add('correct');
+                    } else {
+                        option.classList.add('incorrect');
+                    }
+                }
+                
+                option.innerHTML = `
+                    <div class="option-letter">${letter.toUpperCase()}</div>
+                    <div>${question.options[letter]}</div>
+                `;
+                
+                option.onclick = () => selectAnswer(letter);
+                optionsContainer.appendChild(option);
+            });
+            
+            if (userAnswers[currentQuestionIndex] !== null) {
+                showFeedback();
+            } else {
+                feedbackContainer.style.display = 'none';
+            }
+            
+            updateProgress();
+            
+            document.getElementById('prev-btn').style.display = currentQuestionIndex === 0 ? 'none' : 'flex';
+            document.getElementById('next-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'none' : 'flex';
+            document.getElementById('end-btn').style.display = currentQuestionIndex === questions.length - 1 ? 'flex' : 'none';
+        }
+
+        function selectAnswer(answer) {
+            if (userAnswers[currentQuestionIndex] !== null) return;
+            
+            userAnswers[currentQuestionIndex] = answer;
+            const question = questions[currentQuestionIndex];
+            
+            if (answer === question.answer) {
+                score++;
+            }
+            
+            loadQuestion();
+            showFeedback();
+        }
+
+        function showFeedback() {
+            const question = questions[currentQuestionIndex];
+            const userAnswer = userAnswers[currentQuestionIndex];
+            
+            feedbackContainer.style.display = 'block';
+            
+            if (userAnswer === question.answer) {
+                feedbackHeader.innerHTML = `
+                    <div class="feedback-icon" style="color: #06d6a0">✅</div>
+                    <h3 class="feedback-correct">إجابة صحيحة!</h3>
+                `;
+            } else {
+                feedbackHeader.innerHTML = `
+                    <div class="feedback-icon" style="color: #ef476f">❌</div>
+                    <h3 class="feedback-incorrect">إجابة خاطئة</h3>
+                `;
+            }
+            
+            explanation.innerHTML = question.explanation;
+            const correctLetter = question.answer.toUpperCase();
+            explanation.innerHTML += `<br><br><strong>الإجابة الصحيحة هي:</strong> ${correctLetter}) ${question.options[question.answer]}`;
+        }
+
+        function prevQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                loadQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < questions.length - 1) {
+                currentQuestionIndex++;
+                loadQuestion();
+            }
+        }
+
+        function updateProgress() {
+            const percent = ((currentQuestionIndex + 1) / questions.length) * 100;
+            progressFill.style.width = `${percent}%`;
+            progressPercent.textContent = `${Math.round(percent)}%`;
+        }
+
+        function endQuiz() {
+            questionScreen.style.display = 'none';
+            resultsScreen.style.display = 'block';
+            finalScore.textContent = score;
+            
+            const percentage = (score / questions.length) * 100;
+            if (percentage === 100) {
+                resultsTitle.textContent = "ممتاز! لقد أجبت على جميع الأسئلة بشكل صحيح! 🎉";
+            } else if (percentage >= 80) {
+                resultsTitle.textContent = "أحسنت! لقد أكملت التمارين بنجاح كبير! 🏆";
+            } else if (percentage >= 60) {
+                resultsTitle.textContent = "جيد! لقد أكملت التمارين بنجاح! 👍";
+            } else {
+                resultsTitle.textContent = "لقد أكملت جميع التمارين! يمكنك التحسن بالممارسة 💪";
+            }
+            
+            updateStats();
+        }
+
+        function restartQuiz() {
+            resultsScreen.style.display = 'none';
+            welcomeScreen.style.display = 'block';
+            currentQuestionIndex = 0;
+            userAnswers.fill(null);
+            score = 0;
+            questions = shuffleQuestions(originalQuestions);
+        }
+
+        // بدء التطبيق
+        console.log("✅ الموقع جاهز للعمل!");
+        console.log("📊 عدد الأسئلة: 32 سؤال");
+        console.log("🎯 السؤالان الأولان: اكتشاف الأخطاء");
+        console.log("🔀 الأسئلة مختلطة عشوائياً في كل مرة!");
+    </script>
+</body>
+</html>
